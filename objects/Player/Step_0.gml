@@ -1,13 +1,11 @@
 /// @description Insert description here
 
-if (mouse_lock) {
+if (window_mouse_get_locked()) {
     #region regular movement
-    look_dir -= (window_mouse_get_x() - window_get_width() / 2) / 10;
-    look_pitch -= (window_mouse_get_y() - window_get_height() / 2) / 10;
+    look_dir -= window_mouse_get_delta_x();
+    look_pitch -= window_mouse_get_delta_y();
     look_pitch = clamp(look_pitch, -85, 85);
     
-    window_mouse_set(window_get_width() / 2, window_get_height() / 2);
-
     if (keyboard_check_direct(vk_escape)) {
         game_end();
     }
@@ -42,5 +40,5 @@ if (mouse_lock) {
 }
 
 if (keyboard_check_pressed(vk_tab)) {
-    mouse_lock = !mouse_lock;
+    window_mouse_set_locked(!window_mouse_get_locked());
 }
